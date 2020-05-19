@@ -1,5 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+
+const contactRouter = require('./routes/contact');
+
 const PORT = process.env.PORT || 3000;
 
 const app = express();
@@ -18,19 +21,7 @@ app.get('/', (req, res) => {
   });
 });
 
-app.get('/contact', (req, res) => {
-  res.render('contact', {
-    title: "Contact Me. Please. I'm lonely.",
-    submitted: false,
-  });
-});
-
-app.post('/contact', (req, res) => {
-  res.render('contact', {
-    title: 'Thank You',
-    submitted: true,
-  });
-});
+app.use('/contact', contactRouter);
 
 app.listen(PORT, () => {
   console.log(`Listening. Open http://localhost:${PORT} to view.`);
